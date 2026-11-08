@@ -1,0 +1,144 @@
+# =====================================================================
+# .gitattributes for Unity projects (Windows only)
+#
+# Rule for this project: Git must NEVER convert line endings (no CRLF/LF
+# conversion). Every file is stored exactly as Unity / the editor wrote it.
+# "-text" switches off all line-ending conversion and also overrides a
+# global "core.autocrlf" setting on any PC.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# Default: no line-ending conversion for ANY file
+# ---------------------------------------------------------------------
+*                   -text
+
+# ---------------------------------------------------------------------
+# Unity YAML files (scenes, prefabs, assets ...)
+# No conversion + Unity's Smart Merge tool for merge conflicts
+# ---------------------------------------------------------------------
+*.unity             -text merge=unityyamlmerge diff
+*.prefab            -text merge=unityyamlmerge diff
+*.asset             -text merge=unityyamlmerge diff
+*.mat               -text merge=unityyamlmerge diff
+*.anim              -text merge=unityyamlmerge diff
+*.controller        -text merge=unityyamlmerge diff
+*.overrideController -text merge=unityyamlmerge diff
+*.mask              -text merge=unityyamlmerge diff
+*.physicMaterial    -text merge=unityyamlmerge diff
+*.physicsMaterial   -text merge=unityyamlmerge diff
+*.physicsMaterial2D -text merge=unityyamlmerge diff
+*.playable          -text merge=unityyamlmerge diff
+*.signal            -text merge=unityyamlmerge diff
+*.terrainlayer      -text merge=unityyamlmerge diff
+*.brush             -text merge=unityyamlmerge diff
+*.flare             -text merge=unityyamlmerge diff
+*.fontsettings      -text merge=unityyamlmerge diff
+*.guiskin           -text merge=unityyamlmerge diff
+*.giparams          -text merge=unityyamlmerge diff
+*.lighting          -text merge=unityyamlmerge diff
+*.mixer             -text merge=unityyamlmerge diff
+*.renderTexture     -text merge=unityyamlmerge diff
+*.spriteatlas       -text merge=unityyamlmerge diff
+*.spriteatlasv2     -text merge=unityyamlmerge diff
+*.cubemap           -text merge=unityyamlmerge diff
+*.preset            -text merge=unityyamlmerge diff
+*.shadervariants    -text merge=unityyamlmerge diff
+*.meta              -text merge=unityyamlmerge diff
+
+# ---------------------------------------------------------------------
+# Code and text files (no conversion, but readable diffs)
+# ---------------------------------------------------------------------
+*.cs                -text diff=csharp
+*.shader            -text diff
+*.hlsl              -text diff
+*.cginc             -text diff
+*.compute           -text diff
+*.shadergraph       -text diff
+*.shadersubgraph    -text diff
+*.vfx               -text diff
+*.asmdef            -text diff
+*.asmref            -text diff
+*.inputactions      -text diff
+*.uss               -text diff
+*.uxml              -text diff
+*.json              -text diff
+*.xml               -text diff
+*.yaml              -text diff
+*.yml               -text diff
+*.txt               -text diff
+*.md                -text diff
+*.csv               -text diff
+*.sln               -text diff
+*.csproj            -text diff
+*.gitattributes     -text diff
+*.gitignore         -text diff
+
+# ---------------------------------------------------------------------
+# Binary files (never converted, never diffed or merged as text)
+# ---------------------------------------------------------------------
+# 3D models
+*.fbx               binary
+*.FBX               binary
+*.obj               binary
+*.blend             binary
+*.blend1            binary
+*.dae               binary
+*.3ds               binary
+*.max               binary
+*.ma                binary
+*.mb                binary
+*.gltf              binary
+*.glb               binary
+
+# Images and textures
+*.png               binary
+*.jpg               binary
+*.jpeg              binary
+*.gif               binary
+*.bmp               binary
+*.tga               binary
+*.tif               binary
+*.tiff              binary
+*.psd               binary
+*.exr               binary
+*.hdr               binary
+*.dds               binary
+*.ico               binary
+*.svg               binary
+*.webp              binary
+
+# Audio
+*.wav               binary
+*.mp3               binary
+*.ogg               binary
+*.aif               binary
+*.aiff              binary
+*.flac              binary
+
+# Video
+*.mp4               binary
+*.mov               binary
+*.webm              binary
+*.avi               binary
+
+# Fonts
+*.ttf               binary
+*.otf               binary
+
+# Unity binary data
+*.unitypackage      binary
+*.cubemap.bin       binary
+*.bytes             binary
+*.dll               binary
+*.so                binary
+*.a                 binary
+*.exe               binary
+*.pdb               binary
+*.zip               binary
+*.7z                binary
+*.rar               binary
+*.pdf               binary
+*.lfs               binary
+LightingData.asset  binary
+NavMesh*.asset      binary
+*NavMesh.asset      binary
