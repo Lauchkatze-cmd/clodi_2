@@ -40,6 +40,9 @@ public static class PlayerModelReplacer
             return;
         }
 
+        // Idle and Walk must loop
+        SetupLoopingClips(assetPath);
+
         GameObject player = GameObject.FindWithTag("Player");
         if (player == null)
         {
@@ -73,7 +76,9 @@ public static class PlayerModelReplacer
         foreach (Collider collider in model.GetComponentsInChildren<Collider>(true)) { Object.DestroyImmediate(collider); }
         if (removed > 0) report.AppendLine($"Turned off {removed} light(s)/camera(s) from Blender.");
 
-        // 4. Scale and place on the ground
+        // 4. Turn the model so its head looks along the player's forward (blue arrow), then scale and place it
+        float turned = AlignFacing(model.transform, player.transform);
+        if (!float.IsNaN(turned)) report.AppendLine($"Model turned by {turned:0} degrees so the head looks forward.");
         FitModel(model.transform, player.transform, TargetHeight);
 
         // 5. Animator + controller from the FBX clips
@@ -111,6 +116,17 @@ public static class PlayerModelReplacer
         {
             SetObject(controller, "animator", animator);
             SetBool(controller, "useSwimAnimationForWalking", walk != null);
+
+            // Match the walk animation to the movement speed so the feet don't slide.
+            // The Blender walk cycle moves a foot 0.8 units in 1/3 second = 2.4 Blender units per second;
+            // the distance between front and back foot is 2.05 Blender units.
+            float referenceSpeed = ComputeReferenceSpeed(model.transform, 2.4f, 2.05f);
+            if (referenceSpeed > 0f)
+            {
+                SetFloat(controller, "animationReferenceSpeed", referenceSpeed);
+                SetFloat(controller, "maxAnimationSpeed", 2.2f);
+                report.AppendLine($"Walk animation reference speed: {referenceSpeed:0.00} m/s.");
+            }
         }
 
         EditorSceneManager.MarkSceneDirty(player.scene);
@@ -122,6 +138,79 @@ public static class PlayerModelReplacer
 
         Debug.Log("[Replace Player Model]\n" + report);
         EditorUtility.DisplayDialog("Replace Player Model", report.ToString(), "OK");
+    }
+
+    private static void SetupLoopingClips(string assetPath)
+    {
+        ModelImporter importer = AssetImporter.GetAtPath(assetPath) as ModelImporter;
+        if (importer == null) return;
+        ModelImporterClipAnimation[] clips = importer.clipAnimations.Length > 0 ? importer.clipAnimations : importer.defaultClipAnimations;
+        if (clips.Length == 0) return;
+
+        foreach (ModelImporterClipAnimation clip in clips)
+        {
+            string name = clip.name.ToLowerInvariant();
+            bool loop = name.Contains("idle") || name.Contains("walk");
+            clip.loopTime = loop;
+            clip.loopPose = loop;
+            clip.lockRootRotation = true;
+            clip.lockRootHeightY = true;
+            clip.lockRootPositionXZ = true;
+            clip.keepOriginalOrientation = true;
+            clip.keepOriginalPositionY = true;
+            clip.keepOriginalPositionXZ = true;
+        }
+        importer.animationType = ModelImporterAnimationType.Generic;
+        importer.clipAnimations = clips;
+        importer.SaveAndReimport();
+    }
+
+    /// <summary>
+    /// Finds the head ("front" bone) and the tail end and turns the model around the vertical axis
+    /// so the head points along the player's forward direction. Returns the angle or NaN.
+    /// </summary>
+    private static float AlignFacing(Transform model, Transform player)
+    {
+        Transform head = FindChild(model, "front") ?? FindChild(model, "koerper_vorn");
+        Transform tail = FindChild(model, "schwanz_spitze") ?? FindChild(model, "koerper_hinten");
+        if (head == null || tail == null) return float.NaN;
+
+        Vector3 facing = head.position - tail.position;
+        facing.y = 0f;
+        if (facing.sqrMagnitude < 0.0001f) return float.NaN;
+
+        Vector3 forward = player.forward;
+        forward.y = 0f;
+        float angle = Vector3.SignedAngle(facing, forward, Vector3.up);
+        model.RotateAround(player.position, Vector3.up, angle);
+        return angle;
+    }
+
+    private static float ComputeReferenceSpeed(Transform model, float blenderGroundSpeed, float blenderFootDistance)
+    {
+        Transform front = FindChild(model, "fuss_vl");
+        Transform back = FindChild(model, "fuss_hl");
+        if (front == null || back == null) return -1f;
+        float unityDistance = Vector3.Distance(front.position, back.position);
+        return blenderGroundSpeed * unityDistance / blenderFootDistance;
+    }
+
+    private static Transform FindChild(Transform root, string name)
+    {
+        foreach (Transform child in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == name) return child;
+        }
+        return null;
+    }
+
+    private static void SetFloat(Object target, string field, float value)
+    {
+        SerializedObject serialized = new SerializedObject(target);
+        SerializedProperty property = serialized.FindProperty(field);
+        if (property == null) return;
+        property.floatValue = value;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
     }
 
     private static AnimationClip FindClip(List<AnimationClip> clips, params string[] keywords)
