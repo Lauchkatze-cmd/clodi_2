@@ -104,6 +104,37 @@ public static class ClodiPrototypeBuilder
         }
     }
 
+    /// <summary>
+    /// Recreates only the terrain data (e.g. after the file got broken while copying via Git).
+    /// Everything else in the scene stays as it is.
+    /// </summary>
+    [MenuItem("Tools/Rebuild Swamp Terrain Only")]
+    public static void RebuildTerrainOnly()
+    {
+        Terrain existing = Object.FindFirstObjectByType<Terrain>();
+        if (existing == null)
+        {
+            EditorUtility.DisplayDialog("Rebuild Terrain", "No Terrain found in the open scene. Open the ClodisSwamp scene first.", "OK");
+            return;
+        }
+
+        EnsureFolder("Assets", "Generated");
+        EnsureFolder(GeneratedFolder, "Terrain");
+        AssetDatabase.DeleteAsset(TerrainFolder + "/SwampTerrainData.asset");
+
+        Terrain fresh = CreateTerrain();
+        existing.terrainData = fresh.terrainData;
+        existing.materialTemplate = fresh.materialTemplate;
+        TerrainCollider collider = existing.GetComponent<TerrainCollider>();
+        if (collider != null) collider.terrainData = fresh.terrainData;
+        Object.DestroyImmediate(fresh.gameObject);
+
+        EditorUtility.SetDirty(existing);
+        EditorSceneManager.MarkSceneDirty(existing.gameObject.scene);
+        AssetDatabase.SaveAssets();
+        EditorUtility.DisplayDialog("Rebuild Terrain", "Terrain rebuilt. Save the scene with Ctrl+S.", "OK");
+    }
+
     // =====================================================================
     // Folders and helpers
     // =====================================================================

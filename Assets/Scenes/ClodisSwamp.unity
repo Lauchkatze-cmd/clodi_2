@@ -5881,6 +5881,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ModelPoseLock
   rotationOffset: {x: 0, y: 0, z: 0}
   heightOffset: 0
+  useWaddle: 0
+  stepsPerSecond: 4
+  bobHeight: 0.04
+  sideTilt: 6
+  footSwingAngle: 25
+  footNameKeyword: Fuss
 --- !u!1 &409638702
 GameObject:
   m_ObjectHideFlags: 0
@@ -44880,6 +44886,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1891338440555526406, guid: 00d36c8e126148d4daea6f8845ea81b9, type: 3}
+      propertyPath: useSwimAnimationForWalking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1911082598104898596, guid: 00d36c8e126148d4daea6f8845ea81b9, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -45200,6 +45210,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3476671324303065180, guid: 00d36c8e126148d4daea6f8845ea81b9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5f6d5c8c1b6c93e47a2ac231564b7310, type: 2}
     - target: {fileID: 3496585595507612812, guid: 00d36c8e126148d4daea6f8845ea81b9, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
+    [Tooltip("The FBX only has a SWIM animation, which looks wrong on land. " +
+             "Leave this off and let ModelPoseLock do the waddle instead.")]
+    [SerializeField] private bool useSwimAnimationForWalking = false;
 
     private Rigidbody rb;
     private Collider bodyCollider;
@@ -170,6 +173,6 @@ public class PlayerController : MonoBehaviour
 
     private void SetWalking(bool isWalking)
     {
-        if (animator != null) animator.SetBool("isWalking", isWalking);
+        if (animator != null) animator.SetBool("isWalking", isWalking && useSwimAnimationForWalking);
     }
 }
