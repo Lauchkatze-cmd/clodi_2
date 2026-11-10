@@ -62,6 +62,8 @@ public class EnemyAI : MonoBehaviour
 
     public string CurrentState => currentState;
 
+    private Animator gAnimator;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -86,6 +88,8 @@ public class EnemyAI : MonoBehaviour
         }
 
         if (showStateLabel) CreateStateLabel();
+
+        gAnimator = GetComponent<Animator>();
     }
 
     private void BuildBehaviorTree()
@@ -115,6 +119,18 @@ public class EnemyAI : MonoBehaviour
         UpdateSenses();
         behaviorTree.Tick();
         UpdateColor();
+        //Set correct animation state
+        Debug.Log("currentState: " + currentState);
+        if (gAnimator != null)
+        {
+            
+            switch (currentState)
+            {
+                case "Patrol":
+                    gAnimator.SetBool("isWalking", true);
+                    break;
+            }
+        }
     }
 
     private void LateUpdate()
