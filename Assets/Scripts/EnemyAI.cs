@@ -89,7 +89,7 @@ public class EnemyAI : MonoBehaviour
 
         if (showStateLabel) CreateStateLabel();
 
-        gAnimator = GetComponent<Animator>();
+        gAnimator = GetComponentInChildren<Animator>();
     }
 
     private void BuildBehaviorTree()
@@ -120,7 +120,7 @@ public class EnemyAI : MonoBehaviour
         behaviorTree.Tick();
         UpdateColor();
         //Set correct animation state
-        Debug.Log("currentState: " + currentState);
+        //Debug.Log("currentState: " + currentState);
         if (gAnimator != null)
         {
             
