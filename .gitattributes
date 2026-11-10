@@ -6,12 +6,10 @@
 # "-text" switches off all line-ending conversion and also overrides a
 # global "core.autocrlf" setting on any PC.
 # =====================================================================
-
 # ---------------------------------------------------------------------
 # Default: no line-ending conversion for ANY file
 # ---------------------------------------------------------------------
 *                   -text
-
 # ---------------------------------------------------------------------
 # Unity YAML files (scenes, prefabs, assets ...)
 # No conversion + Unity's Smart Merge tool for merge conflicts
@@ -44,7 +42,6 @@
 *.preset            -text merge=unityyamlmerge diff
 *.shadervariants    -text merge=unityyamlmerge diff
 *.meta              -text merge=unityyamlmerge diff
-
 # ---------------------------------------------------------------------
 # Code and text files (no conversion, but readable diffs)
 # ---------------------------------------------------------------------
@@ -72,7 +69,6 @@
 *.csproj            -text diff
 *.gitattributes     -text diff
 *.gitignore         -text diff
-
 # ---------------------------------------------------------------------
 # Binary files (never converted, never diffed or merged as text)
 # ---------------------------------------------------------------------
@@ -89,7 +85,6 @@
 *.mb                binary
 *.gltf              binary
 *.glb               binary
-
 # Images and textures
 *.png               binary
 *.jpg               binary
@@ -101,12 +96,11 @@
 *.tiff              binary
 *.psd               binary
 *.exr               binary
-*.hdr               binary
+*.hdr filter=lfs diff=lfs merge=lfs -text
 *.dds               binary
 *.ico               binary
 *.svg               binary
 *.webp              binary
-
 # Audio
 *.wav               binary
 *.mp3               binary
@@ -114,17 +108,14 @@
 *.aif               binary
 *.aiff              binary
 *.flac              binary
-
 # Video
 *.mp4               binary
 *.mov               binary
 *.webm              binary
 *.avi               binary
-
 # Fonts
 *.ttf               binary
 *.otf               binary
-
 # Unity binary data
 *.unitypackage      binary
 *.cubemap.bin       binary
