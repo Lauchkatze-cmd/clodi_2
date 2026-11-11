@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class PoisonAffect : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private float storedWalkSpeed;
+    private bool playerInside;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (playerInside) return;
+        if (!other.TryGetComponent(out PlayerController player)) return;
+
+        storedWalkSpeed = player.WalkSpeed;
+        player.WalkSpeed = 1f;
+        playerInside = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (!playerInside) return;
+        if (!other.TryGetComponent(out PlayerController player)) return;
+
+        player.WalkSpeed = storedWalkSpeed;
+        playerInside = false;
     }
 }

@@ -107,6 +107,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 aimPoint;
 
     public float CurrentSpeed => currentSpeed;
+    public float WalkSpeed
+    {
+        get => walkSpeed;
+        set => walkSpeed = value;
+    }
     public float Stamina01 => maxStamina > 0f ? stamina / maxStamina : 0f;
     public bool IsSprinting => isSprinting;
 
