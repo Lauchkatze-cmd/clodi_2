@@ -1,3 +1,5 @@
 Das ist das superduper Testfile
 
 Mit einer Extrazeile, weils bearbeitet wurde
+
+Und hier ist eine Zeile dazu, um einen merge-conflict herzuzeigen!
