@@ -1,3 +1,5 @@
 Das ist das superduper Testfile
 
 Mit einer Extrazeile, weils bearbeitet wurde
+
+Hier die Zeile, die im Online-Git ist - jetzt wirds ein Konflikt!
