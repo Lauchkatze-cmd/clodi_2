@@ -3910,9 +3910,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 516151633}
     m_Modifications:
+    - target: {fileID: 1829024610190479461, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651744241705352758, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651744241705352758, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651744241705352758, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6741486116957264057, guid: fafb43111441e8b4289421088ae362db, type: 3}
       propertyPath: m_Name
       value: SwampGuard_South
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418305364628895783, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: bodyRenderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418305364628895783, guid: fafb43111441e8b4289421088ae362db, type: 3}
+      propertyPath: waitAtPointTime
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8418305364628895783, guid: fafb43111441e8b4289421088ae362db, type: 3}
       propertyPath: patrolPoints.Array.size
