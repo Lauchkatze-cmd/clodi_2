@@ -120,7 +120,7 @@ public class EnemyAI : MonoBehaviour
         behaviorTree.Tick();
         UpdateColor();
         //Set correct animation state
-        Debug.Log("animator state: " + (gAnimator == null));
+        //Debug.Log("animator state: " + (gAnimator == null));
         if (gAnimator != null)
         {
             
