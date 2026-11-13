@@ -23051,6 +23051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 870530980}
   - component: {fileID: 870530979}
+  - component: {fileID: 870530981}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -23092,6 +23093,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870530981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870530978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc361913b204667b44ce60f9d5704c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameFeedback
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 0.6}
+  eggFlashColor: {r: 1, g: 0.85, b: 0.2, a: 0.45}
+  flashDuration: 0.5
+  hitTextColor: {r: 1, g: 0.3, b: 0.3, a: 1}
+  enemyTextColor: {r: 1, g: 0.9, b: 0.3, a: 1}
+  eggTextColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+  popupFontSize: 34
+  popupDuration: 1
+  popupRiseSpeed: 80
+  playerHitEffect: {fileID: 6855314210357232287, guid: 7c2a9b83b809a0848915fabd9596b68b, type: 3}
+  enemyHitEffect: {fileID: 8205706795460263314, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
+  eggCollectEffect: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+  effectLifetime: 3
+  playerHitSound: {fileID: 0}
+  enemyHitSound: {fileID: 0}
+  eggCollectSound: {fileID: 0}
+  soundVolume: 0.8
 --- !u!1 &870828519
 GameObject:
   m_ObjectHideFlags: 0
