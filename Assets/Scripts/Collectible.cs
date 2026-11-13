@@ -28,7 +28,17 @@ public class Collectible : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if (GameManager.Instance != null) GameManager.Instance.AddEgg();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddEgg();
+
+            if (GameFeedback.Instance != null)
+            {
+                GameFeedback.Instance.EggCollected(transform.position,
+                    GameManager.Instance.CollectedEggs, GameManager.Instance.EggsToCollect);
+            }
+        }
+
         Destroy(gameObject);
     }
 }

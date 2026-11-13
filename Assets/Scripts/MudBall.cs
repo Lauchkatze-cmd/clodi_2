@@ -19,7 +19,16 @@ public class MudBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) return;
 
         EnemyStatus enemy = collision.gameObject.GetComponentInParent<EnemyStatus>();
-        if (enemy != null) enemy.Stun(stunDuration);
+        if (enemy != null)
+        {
+            enemy.Stun(stunDuration);
+
+            if (GameFeedback.Instance != null)
+            {
+                Vector3 hitPoint = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
+                GameFeedback.Instance.EnemyHit(hitPoint);
+            }
+        }
 
         Destroy(gameObject);
     }
